@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('livros', function (Blueprint $table) {
+            $table->id();
+            $table->string('nome_livro',45)->notNull();
+            $table->string('nome_original',75)->notNull();
+            $table->string('genero_livro',25)->notNull();
+            $table->string('sinopse_livro',500)->notNull();
+            $table->int('paginas_livro',11)->notNull();
+            $table->int('anopub_livro',11)->notNull();
+            $table->int('editora_livro',11)->notNull();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('livros');
+    }
+};

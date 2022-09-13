@@ -17,7 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('autors', 'AutorController');
-
+Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('autores', 'AutorController');
+Route::resource('editoras', 'EditoraController');
+Route::resource('livros', 'LivroController');

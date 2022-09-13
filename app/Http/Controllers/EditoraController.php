@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Autor;
+use App\Models\Editora;
 use Illuminate\Http\Request;
 
-class AutorController extends Controller
+class EditoraController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class AutorController extends Controller
      */
     public function index()
     {
-        $autores = Autor::all();
-        return view('autores.index', compact('autores'));
+        $editoras = Editora::all();
+        return view('editoras.index', compact('editoras'));
     }
 
     /**
@@ -26,7 +26,7 @@ class AutorController extends Controller
     public function create()
     {
         //
-        return view('autores/create');
+        return view('editoras/create');
     }
 
     /**
@@ -38,11 +38,11 @@ class AutorController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            'nome_autor' => 'required|max:45',
-            'nacao_autor' => 'required|max:45'
+            'nome_editora' => 'required|max:45',
+            'estado_editora' => 'required|max:11',
         ]);
-        $service = Autor::create($validateData);
-        return redirect ('/autores')->with('success', 'Autor cadastrado com sucesso!');
+        $service = Editora::create($validateData);
+        return redirect('/editoras')->with('success', 'Editora cadastrada com sucesso!');
     }
 
     /**
@@ -53,9 +53,8 @@ class AutorController extends Controller
      */
     public function show($id)
     {
-        $autor = Autor::findOrFail($id);
-        return view ('autores.show', compact('autor'));
-
+        $editora = Editora::findOrFail($id);
+        return view('editoras.show', compact('editora'));
     }
 
     /**
@@ -66,8 +65,8 @@ class AutorController extends Controller
      */
     public function edit($id)
     {
-        $autor = Autor::findOrFail($id);
-        return view ('autores.edit', compact('autor'));
+        $editora = Editora::findOrFail($id);
+        return view('editoras.edit', compact('editora'));
     }
 
     /**
@@ -80,11 +79,11 @@ class AutorController extends Controller
     public function update(Request $request, $id)
     {
         $validateData = $request->validate([
-            'nome_autor' => 'required|max:45',
-            'nacao_autor' => 'required|max:45'
+            'nome_editora' => 'required|max:45',
+            'estado_editora' => 'required|max:11',
         ]);
-        Autor::whereId($id)->update($validateData);
-        return redirect ('/autores')->with('success', 'Autor atualizado com sucesso!');
+        Editora::whereId($id)->update($validateData);
+        return redirect('/editoras')->with('success', 'Editora atualizada com sucesso!');
     }
 
     /**
@@ -95,8 +94,8 @@ class AutorController extends Controller
      */
     public function destroy($id)
     {
-        $servico = Autor::findOrFail($id);
-        $servico->delete();
-        return redirect ('/autores')->with('success', 'Autor deletado com sucesso!');
+        $service = Editora::findOrFail($id);
+        $service->delete();
+        return redirect('/editoras')->with('success', 'Editora removida com sucesso!');
     }
 }

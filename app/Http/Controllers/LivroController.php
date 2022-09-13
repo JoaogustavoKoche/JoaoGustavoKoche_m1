@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Autor;
+use App\Models\Livro;
 use Illuminate\Http\Request;
 
-class AutorController extends Controller
+class LivroController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class AutorController extends Controller
      */
     public function index()
     {
-        $autores = Autor::all();
-        return view('autores.index', compact('autores'));
+        $livros = Livro::all();
+        return view('livros.index', compact('livros'));
     }
 
     /**
@@ -26,7 +26,7 @@ class AutorController extends Controller
     public function create()
     {
         //
-        return view('autores/create');
+        return view('livros/create');
     }
 
     /**
@@ -38,11 +38,16 @@ class AutorController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            'nome_autor' => 'required|max:45',
-            'nacao_autor' => 'required|max:45'
+            'nome_livro' => 'required|max:45',
+            'nome_original' => 'required|max:75',
+            'genero_livro' => 'required|max:25',
+            'sinopse_livro' => 'nullable|max:500',
+            'paginas_livro' => 'required|max:11',
+            'anopub_livro' => 'required|max:11',
+            'editora_livro' => 'required|max:11',
         ]);
-        $service = Autor::create($validateData);
-        return redirect ('/autores')->with('success', 'Autor cadastrado com sucesso!');
+        $service = Livro::create($validateData);
+        return redirect('/livros')->with('success', 'Livro cadastrado com sucesso!');
     }
 
     /**
@@ -53,9 +58,8 @@ class AutorController extends Controller
      */
     public function show($id)
     {
-        $autor = Autor::findOrFail($id);
-        return view ('autores.show', compact('autor'));
-
+        $livro = Livro::findOrFail($id);
+        return view('livros.show', compact('livro'));
     }
 
     /**
@@ -66,8 +70,8 @@ class AutorController extends Controller
      */
     public function edit($id)
     {
-        $autor = Autor::findOrFail($id);
-        return view ('autores.edit', compact('autor'));
+        $livro = Livro::findOrFail($id);
+        return view('livros.edit', compact('livro'));
     }
 
     /**
@@ -80,11 +84,16 @@ class AutorController extends Controller
     public function update(Request $request, $id)
     {
         $validateData = $request->validate([
-            'nome_autor' => 'required|max:45',
-            'nacao_autor' => 'required|max:45'
+            'nome_livro' => 'required|max:45',
+            'nome_original' => 'required|max:75',
+            'genero_livro' => 'required|max:25',
+            'sinopse_livro' => 'nullable|max:500',
+            'paginas_livro' => 'required|max:11',
+            'anopub_livro' => 'required|max:11',
+            'editora_livro' => 'required|max:11',
         ]);
-        Autor::whereId($id)->update($validateData);
-        return redirect ('/autores')->with('success', 'Autor atualizado com sucesso!');
+        Livro::whereId($id)->update($validateData);
+        return redirect('/livros')->with('success', 'Livro atualizado com sucesso!');
     }
 
     /**
@@ -95,8 +104,8 @@ class AutorController extends Controller
      */
     public function destroy($id)
     {
-        $servico = Autor::findOrFail($id);
-        $servico->delete();
-        return redirect ('/autores')->with('success', 'Autor deletado com sucesso!');
+        $service = Livro::findOrFail($id);
+        $service->delete();
+        return redirect('/livros')->with('success', 'Livro excluído com sucesso!');
     }
 }
